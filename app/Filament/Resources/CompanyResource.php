@@ -20,6 +20,17 @@ class CompanyResource extends Resource
     protected static ?string $model = Company::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-building-office-2';
+    // protected static ?string $navigationLabel = 'Company';
+    protected static ?string $modelLabel = 'Company';
+    protected static ?string $pluralModelLabel = 'Company';
+    protected static ?int $navigationSort = 1;
+    protected static ?string $navigationGroup = "Settings";
+
+
+    public static function canCreate(): bool
+    {
+        return Company::count() == 0 ? true : false;
+    }
 
     public static function form(Form $form): Form
     {
@@ -84,6 +95,7 @@ class CompanyResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
